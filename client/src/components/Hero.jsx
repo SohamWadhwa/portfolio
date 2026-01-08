@@ -1,7 +1,7 @@
 
 const Hero = () => {
     return (
-        <div className="flex flex-col text-black gap-4 h-1/2 p-16 pr-1 dark:text-[#edf6f9]">
+        <div className="flex flex-col text-black gap-4 h-1/2 p-16 pr-1 dark:text-[#edf6f9] ">
             <span className="w-full text-4xl font-bold ">
                 Hello, I'm
             </span>

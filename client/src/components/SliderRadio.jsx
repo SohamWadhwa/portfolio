@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useCallback, useEffect, useRef, useState } from 'react';
 
 // Normalize options to { label, value }
 const normalizeOptions = (options) =>
@@ -78,10 +78,33 @@ const SliderRadio = ({
     }
   };
 
+  const clickRef = useRef(null);
+  const hoverRef = useRef(null);
+  const lastHoverTime = useRef(0);
+
+
+  const playHover = useCallback(() => {
+    const now = Date.now();
+
+    // prevent rapid re-triggering
+    if (now - lastHoverTime.current < 150) return;
+
+      lastHoverTime.current = now;
+      hoverRef.current.currentTime = 0;
+      hoverRef.current.volume = 0.25;
+      hoverRef.current.play().catch(() => {});
+  }, []);
+
+  const playClick = () => {
+      clickRef.current.currentTime = 0;
+      clickRef.current.volume = 0.5;
+      clickRef.current.play().catch(() => {});
+  };
+
   return (
     <div
       ref={containerRef}
-      className={`relative inline-flex items-center rounded-full bg-black/5 dark:bg-white/10 p-1 ${
+      className={`relative inline-flex items-center rounded-full shadow-2xl border  bg-black/5 dark:bg-white/10 p-1 ${
         disabled ? 'opacity-50 pointer-events-none' : ''
       } ${className}`}
       role="radiogroup"
@@ -112,12 +135,15 @@ const SliderRadio = ({
             className={`relative flex justify-center text-center cursor-pointer z-10 rounded-full ${sizes[size]} transition-colors duration-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-black/20 dark:focus-visible:ring-white/20 ${
               active ? 'text-white dark:text-white' : 'text-black/60 dark:text-white/60'
             }`}
-            onClick={() => handleSelect(idx)}
+            onClick={() => { handleSelect(idx); playClick(); }}
+            onMouseEnter={playHover}
           >
             {opt.label}
           </button>
         );
       })}
+      <audio ref={clickRef} src="/audio/click.mp3" preload="auto" />
+      <audio ref={hoverRef} src="/audio/typewrite.mp3" preload="auto" />
     </div>
   );
 };

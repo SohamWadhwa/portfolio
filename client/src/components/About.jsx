@@ -19,7 +19,7 @@ const About = () => {
     };
     return (
         <motion.div
-            className="flex flex-col justify-center text-black gap-4 w-full h-screen p-16 text-xl dark:text-[#edf6f9]"
+            className="flex flex-col justify-center text-black gap-4 m-16 p-16 text-xl dark:text-[#edf6f9] bg-gray-300/20 rounded-4xl backdrop-blur-sm shadow-2xl"
             variants={containerVariants}
             initial="hidden"
             animate="visible"

@@ -6,6 +6,7 @@ import About from "./components/About.jsx";
 import Projects from "./components/Projects.jsx";
 import Skills from "./components/Skills.jsx";
 import Contact from "./components/Contact.jsx";
+import Index from "./components/Background.jsx";
 
 const navItems = [
   { id: "about", label: "About me" },
@@ -15,8 +16,9 @@ const navItems = [
 ];
 
 function App() {
-  const [theme, setTheme] = useState("light");
+  const [theme, setTheme] = useState("dark");
   const [activeItem, setActiveItem] = useState("about");
+  const [bgReady, setBgReady] = useState(false);
 
   useEffect(() => {
     const root = document.documentElement;
@@ -33,22 +35,27 @@ function App() {
   };
 
   return (
-    <div className="flex h-screen w-screen overflow-x-hidden overflow-y-hidden bg-[#F5F5DC] dark:bg-black">
-      <Sidebar theme={theme} toggleTheme={toggleTheme} />
-      <div className="flex flex-col w-1/2">
-        <Hero />
-        <Navigation 
-          navItems={navItems} 
-          activeItem={activeItem} 
-          setActiveItem={setActiveItem} 
-        />
-      </div>
-      <div className="w-1/2">
-        {activeItem === "about" && <About />}
-        {activeItem === "projects" && <Projects />}
-        {activeItem === "skills" && <Skills />}
-        {activeItem === "contact" && <Contact />}
-      </div>
+    <div className="relative flex h-screen w-screen overflow-x-hidden overflow-y-hidden bg-transparent dark:bg-transparent">
+      <Index onReady={() => setBgReady(true)} />
+      {bgReady && (
+        <>
+          <Sidebar theme={theme} toggleTheme={toggleTheme} />
+          <div className="flex flex-col w-1/2 relative z-10">
+            <Hero />
+            <Navigation
+              navItems={navItems}
+              activeItem={activeItem}
+              setActiveItem={setActiveItem}
+            />
+          </div>
+          <div className="w-1/2 relative z-10">
+            {activeItem === "about" && <About />}
+            {activeItem === "projects" && <Projects />}
+            {activeItem === "skills" && <Skills />}
+            {activeItem === "contact" && <Contact />}
+          </div>
+        </>
+      )}
     </div>
   );
 }

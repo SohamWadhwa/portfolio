@@ -44,20 +44,22 @@ const Sidebar = ({ theme, toggleTheme }) => {
     return (
         <>
             {/* Desktop Sidebar */}
-            <div className="hidden md:flex flex-col items-center justify-between gap-4 w-28 h-full bg-black dark:bg-sky-50 dark:text-black text-[#f7f7f7] text-3xl p-16">
+            <div className="hidden md:flex flex-col items-center justify-between gap-4 w-28 h-full bg-sky-100/60 dark:bg-black text-black dark:text-[#f7f7f7] text-3xl p-16 shadow-2xl backdrop-blur-xl" >
                 <span className="font-semibold text-3xl rotate-270 p-8">Portfolio.</span>
-                <div className="flex justify-between items-center gap-2 rotate-270 font-light text-gray-400">
-                    <a className="text-2xl hover:text-[#edf6f9] dark:hover:text-[#213547] transition-colors duration-200 p-2 cursor-pointer" onClick={playClick} onMouseEnter={playHover}>LinkedIn</a>
+                <div className="flex justify-between items-center gap-1 rotate-270 font-light text-gray-600">
+                    <a className="text-xl hover:text-[#213547] dark:hover:text-[#edf6f9] transition-colors duration-200 p-2 cursor-pointer" onClick={playClick} onMouseEnter={playHover}>LinkedIn</a>
                     <Dot size="w-2 h-2"/>
-                    <a className="text-2xl hover:text-[#edf6f9] dark:hover:text-[#213547] transition-colors duration-200 p-2 cursor-pointer" onClick={playClick} onMouseEnter={playHover}>X</a>
+                    <a className="text-xl hover:text-[#213547] dark:hover:text-[#edf6f9] transition-colors duration-200 p-2 cursor-pointer" onClick={playClick} onMouseEnter={playHover}>Github</a>
                     <Dot size="w-2 h-2"/>
-                    <a className="text-2xl hover:text-[#edf6f9] dark:hover:text-[#213547] transition-colors duration-200 p-2 cursor-pointer" onClick={playClick} onMouseEnter={playHover}>Instagram</a>
+                    <a className="text-xl hover:text-[#213547] dark:hover:text-[#edf6f9] transition-colors duration-200 p-2 cursor-pointer" onClick={playClick} onMouseEnter={playHover}>X</a>
+                    <Dot size="w-2 h-2"/>
+                    <a className="text-xl hover:text-[#213547] dark:hover:text-[#edf6f9] transition-colors duration-200 p-2 cursor-pointer" onClick={playClick} onMouseEnter={playHover}>Instagram</a>
                 </div>
                 <Around toggled={theme === "dark"} toggle={() => { playThemeSound(); toggleTheme(); }} duration={750} onMouseEnter={playHover}/>
             </div>
 
             {/* Mobile Navbar */}
-            <div className="md:hidden fixed top-0 left-0 right-0 z-50 bg-black dark:bg-[#f7f7f7] dark:text-black text-[#f7f7f7]">
+            <div className="md:hidden fixed top-0 left-0 right-0 z-50 bg-[#f7f7f7] dark:bg-black text-black dark:text-[#f7f7f7]">
                 <div className="flex items-center justify-between px-6 py-4">
                     <span className="font-semibold text-xl">Portfolio.</span>
                     <div className="flex items-center gap-4">
@@ -78,10 +80,10 @@ const Sidebar = ({ theme, toggleTheme }) => {
 
                 {/* Mobile Menu Dropdown */}
                 <div className={`overflow-hidden transition-all duration-300 ease-in-out ${isMenuOpen ? 'max-h-64 opacity-100' : 'max-h-0 opacity-0'}`}>
-                    <div className="flex flex-col items-center gap-4 py-6 bg-black dark:bg-[#f7f7f7] border-t border-gray-800 dark:border-gray-200">
-                        <a className="text-xl font-light text-gray-400 hover:text-[#edf6f9] dark:hover:text-[#213547] transition-colors duration-200 cursor-pointer" onClick={() => { playClick(); setIsMenuOpen(false); }} onMouseEnter={playHover}>LinkedIn</a>
-                        <a className="text-xl font-light text-gray-400 hover:text-[#edf6f9] dark:hover:text-[#213547] transition-colors duration-200 cursor-pointer" onClick={() => { playClick(); setIsMenuOpen(false); }} onMouseEnter={playHover}>X</a>
-                        <a className="text-xl font-light text-gray-400 hover:text-[#edf6f9] dark:hover:text-[#213547] transition-colors duration-200 cursor-pointer" onClick={() => { playClick(); setIsMenuOpen(false); }} onMouseEnter={playHover}>Instagram</a>
+                    <div className="flex flex-col items-center gap-4 py-6 bg-[#f7f7f7] dark:bg-black border-t border-gray-200 dark:border-gray-800">
+                        <a className="text-xl font-light text-gray-400 hover:text-[#213547] dark:hover:text-[#edf6f9] transition-colors duration-200 cursor-pointer" onClick={() => { playClick(); setIsMenuOpen(false); }} onMouseEnter={playHover}>LinkedIn</a>
+                        <a className="text-xl font-light text-gray-400 hover:text-[#213547] dark:hover:text-[#edf6f9] transition-colors duration-200 cursor-pointer" onClick={() => { playClick(); setIsMenuOpen(false); }} onMouseEnter={playHover}>X</a>
+                        <a className="text-xl font-light text-gray-400 hover:text-[#213547] dark:hover:text-[#edf6f9] transition-colors duration-200 cursor-pointer" onClick={() => { playClick(); setIsMenuOpen(false); }} onMouseEnter={playHover}>Instagram</a>
                     </div>
                 </div>
             </div>

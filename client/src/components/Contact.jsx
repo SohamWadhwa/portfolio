@@ -1,6 +1,7 @@
-import { useState } from "react";
+import { useCallback, useRef, useState } from "react";
 import { motion } from "framer-motion";
 import emailjs from "@emailjs/browser";
+import React from "react";
 
 const Contact = () => {
 	const [name, setName] = useState("");
@@ -68,6 +69,29 @@ const Contact = () => {
         }
     };
 
+	const clickRef = useRef(null);
+	const hoverRef = useRef(null);
+	const lastHoverTime = useRef(0);
+
+
+	const playHover = useCallback(() => {
+		const now = Date.now();
+
+		// prevent rapid re-triggering
+		if (now - lastHoverTime.current < 150) return;
+
+		lastHoverTime.current = now;
+		hoverRef.current.currentTime = 0;
+		hoverRef.current.volume = 0.25;
+		hoverRef.current.play().catch(() => {});
+	}, []);
+
+    const playClick = () => {
+        clickRef.current.currentTime = 0;
+        clickRef.current.volume = 0.5;
+        clickRef.current.play().catch(() => {});
+    };
+
 	return (
 		<motion.section
 			className="flex flex-col items-center text-black gap-6 w-full min-h-screen p-8 sm:p-12 md:p-16 text-base sm:text-lg md:text-xl dark:text-[#edf6f9]"
@@ -75,15 +99,12 @@ const Contact = () => {
 			initial="hidden"
 			animate="visible"
 		>
-			<h2 className="text-2xl sm:text-3xl md:text-4xl font-semibold tracking-tight mb-2 dark:text-white">
-				Contact
-			</h2>
 			<p className="text-black/70 dark:text-white/70 mb-4 text-sm sm:text-base text-center">
 				Have a question or an opportunity? Send me a message.
 			</p>
 
 			<motion.div
-				className="w-full max-w-3xl grid grid-cols-1 gap-6"
+				className="w-full max-w-3xl grid grid-cols-1 gap-6 "
 				variants={gridVariants}
 				initial="hidden"
 				animate="visible"
@@ -91,7 +112,7 @@ const Contact = () => {
 			>
 				<motion.form
 					onSubmit={handleSubmit}
-					className="rounded-xl border border-black/10 dark:border-white/10 p-5 bg-white/30 dark:bg-white/5 backdrop-blur-sm shadow-sm"
+					className="rounded-xl border border-black/10 dark:border-white/10 p-5 bg-white/30 dark:bg-white/5 backdrop-blur-sm shadow-2xl"
 					variants={cardVariants}
 					initial="hidden"
 					animate="visible"
@@ -145,6 +166,8 @@ const Contact = () => {
 							type="submit"
 							whileHover={{ scale: 1.03 }}
 							whileTap={{ scale: 0.98 }}
+							onClick={playClick}
+							onMouseEnter={playHover}
 							className="rounded-md bg-black dark:bg-gray-400/20 text-white px-4 py-2 text-sm shadow-sm cursor-pointer"
 						>
 							Send Message
@@ -167,6 +190,8 @@ const Contact = () => {
 					</div>
 				</motion.form>
 			</motion.div>
+			<audio ref={clickRef} src="/audio/click.mp3" preload="auto" />
+            <audio ref={hoverRef} src="/audio/typewrite.mp3" preload="auto" />
 		</motion.section>
 	);
 };

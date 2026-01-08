@@ -107,7 +107,7 @@ const Projects = () => {
                 {visibleItems.map((proj) => (
                     <motion.div
                         key={proj.id}
-                        className="rounded-xl border border-black/10 dark:border-white/10 p-5 bg-white/30 dark:bg-white/5 backdrop-blur-sm shadow-sm"
+                        className="rounded-xl border border-black/10 dark:border-white/10 p-5 bg-white/30 dark:bg-white/5 backdrop-blur-sm shadow-2xl"
                         variants={cardVariants}
                         initial="hidden"
                         animate="visible"
